@@ -1,0 +1,6 @@
+tmdb_web
+	frontend
+	backend
+        itt jobb klikk, open git bush here
+        cmd-ba git init enter
+ez azért jó mert az egész tmdb könyvtár tartalma fog git repository-hoz tartozni
