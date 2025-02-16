@@ -4,3 +4,10 @@ tmdb_web
         itt jobb klikk, open git bush here
         cmd-ba git init enter
 ez azért jó mert az egész tmdb könyvtár tartalma fog git repository-hoz tartozni
+
+letöltöttem a github-ról a web templatemet, betettem a frontendbe
+cmd-ba npm install
+
+utána vs kód nyit a teljes tmdb könyvtárba és git feltölt
+utána nyissuk meg a frontendet a vs kódba
+és mehet a reactos munka:)
