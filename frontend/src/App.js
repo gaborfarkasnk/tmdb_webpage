@@ -1,15 +1,16 @@
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import LandingPage from "./components/LandingPage";
+import Listview from "./components/Listview";
 import "./css/main.css"
 
 function App() {
   return (
     <div className="App">
-      
-      <Navbar/>
-      <LandingPage/>
+      <div>
+        <Navbar/>
+        <Listview/>
+      </div>
       <Footer/>
     </div>
   );

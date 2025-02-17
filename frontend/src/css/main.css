@@ -1,10 +1,11 @@
 @import "Footer.css";
 @import "variables.css";
-@import "LandingPage.css";
+@import "Listview.css";
 @import "MovieDetailsView.css";
 @import "MovieListView.css";
 @import "Navbar.css";
 @import "Sidebar.css";
+@import "./micro/FoldableCard.css";
 
 
 *{
@@ -18,13 +19,21 @@ body{
     font-family: "Source Sans 3", serif;
 }
 
+.App{
+    
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 button{
     background-color: var(--light-blue);
     font: inherit;
     color: var(--default-font-color);
     padding: 10px;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 15px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -33,4 +42,19 @@ button{
 .inverted-button{
     background-color: var(--default-font-color);
     color: var(--light-blue);
+}
+
+.content{
+    
+    margin: var(--content-margin);
+    
+}
+
+.horisontal-box{
+    display: flex;
+}
+
+hr{
+    border: none;
+    border-bottom: var(--default-border);
 }

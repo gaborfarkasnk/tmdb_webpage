@@ -2,6 +2,10 @@ import React from 'react'
 
 export default function MovieListView() {
   return (
-    <div>MovieListView</div>
+    <div className='listview'>
+
+      MovieListView
+    
+    </div>
   )
 }

@@ -1,0 +1,19 @@
+.sidebar{
+    
+    width: 260px;
+}
+
+.sidebar-card{
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+
+.sidebar-card .header{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.sidebar-card .card-content{
+    padding: 10px;
+}

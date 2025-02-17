@@ -96,6 +96,344 @@ button{
     color: var(--light-blue);
 }
 
+-----------------------------------------------------------------------------------
+div konténerre jellemző tulajdonság:
+magassága akkora amekkora kell a childoknak, szélessége meg a teljes ablaké
+
+----------------------------------------------------------------------------
+jó lenne a listview-ba egymás mellé rendezni a sidebart és movielistview-t
+ehhez kell flex box, mert az alapból ezt csinálja
+1 opció van: szokásos, még egy div, className, css stb
+de itt egy másik
+2 className van egy divnek, először az elsőt veszi figyelembe utána a másodikat stb
+fontos hogy space-t rakjunk közéjük
+
+export default function Listview() {
+  return (
+    <div className='content horisontal-box'>
+        <Sidebar/>
+        <MovieListView/>
+    </div>
+  )
+}
+
+--------------------------------------------------
+feladat, többször használható box-ot hozunk létre amik a side-barba kellenek, de különböző névvel kerülnek be
+ezért a functionnak adunk egy paramétert
+nicro könyvtárba teszük
+
+FoldableCard.js
+
+import React from 'react'
+
+export default function FoldableCard({title}) { //title a paraméter, figyelni a kapcsos zárójellekre
+  return (
+    <div>{title}</div> //ide rakjuk be kapcsossal!
+  )
+}
+vagy uez másként megoldva
+
+export default function FoldableCard(props) { //ilyenkor nem kell a kapcsos zárójel
+  return (
+    <div>{props.title}</div> //itt kell a kapcsos és minden elé kell a props.
+  )
+}
+
+
+ezt a Siderbar.js-ben használtuk
+
+import React from 'react'
+import FoldableCard from './micro/FoldableCard'
+
+export default function Sidebar() {
+  return (
+    <div className='sidebar'>
+
+      <h2>Popular Movies</h2>
+      <FoldableCard title='Sort'/> // így kell megadni a paramétert
+      <FoldableCard title='Where to watch'/> // így kell megadni a paramétert
+      <FoldableCard title='Filters'/> // így kell megadni a paramétert
+      
+    </div>
+  )
+}
+
+-------------------------------------------------------------------------
+2 paraméter is lehet egy függvényben, mint Pythonnál, vessző kell közéjük
+
+export default function FoldableCard({title, content}) {
+  return (
+    <div>
+        <b>{title}</b>
+        
+        <div>
+            {content} //ez az új paraméter
+        </div>
+    </div>
+  )
+}
+
+ezt beinjektáljuk a Sidebar.js-be
+export default function Sidebar() {
+  return (
+    <div className='sidebar'>
+
+      <h2>Popular Movies</h2>
+      <FoldableCard title='Sort' content={ //így rakunk bele egyedi tartalmat, injektálunk
+        <div>
+          Lorem ipsum dolor sit amet. //ezt injektáltuk bem csak a sort alá rakta be
+        </div>
+        
+        }/>
+      <FoldableCard title='Where to watch'/>
+      <FoldableCard title='Filters'/>
+      
+    </div>
+  )
+}
+-------------------------------------------------------------------------
+példának mind a 3 helyre bevittünk más más adatot, de képet bármit lehet
+
+export default function Sidebar() {
+  return (
+    <div className='sidebar'>
+
+      <h2>Popular Movies</h2>
+      <FoldableCard title='Sort' content={
+        <p>
+          Lorem ipsum dolor sit amet. //ide ezt vittük be
+        </p>
+      }/>
+
+      <FoldableCard title='Where to watch'content={
+        <h2>Hello</h2> //ide ezt vittük be
+      }/>
+
+      <FoldableCard title='Filters' content={
+        <button>Click</button> //ide ezt vittük be
+      }/>
+      
+    </div>
+  )
+}
+
+--------------------------------------------------------------------------
+foldablecard.js így alakult, kapott class nevet
+export default function FoldableCard({title, content}) {
+  return (
+    <div className='card'>
+        <b>{title}</b>
+
+        <div>
+            {content}
+        </div>
+    </div>
+  )
+}
+
+------------------------------------------------------------------------
+én micro css- könytárat készítettem
+FoldableCard.css-nek
+mainbe: @import "./micro/FoldableCard.css";
+
+.card{
+    border: var(--default-border);
+    border-radius: var(--default-border-radius);
+    padding: 10px;
+    box-shadow: -0px 0px 15px 3px rgba(0,0,0,0.15);
+    background-color: white;
+    display: flex;
+}
+------------------------------------------------------------------------
+
+shaddow generátor van a neten
+https://cssgenerator.org/box-shadow-css-generator.html#google_vignette
+csak az első sor kell a kódból //legtöbb browsernek jó ez
+box-shadow: -8px 0px 28px 3px rgba(138,130,130,0.74);
+box-shadow: -0px 0px 15px 3px rgba(0,0,0,0.15); //számokat át lehet írni, beállítani amit akarunk
+
+margót nem itt adtuk meg, mert azt majd a helyén, mert különbözők lesznek
+
+------------------------------------------------------------------------------
+egy példa a css sorrendiség fontosságáról:
+
+
+export default function FoldableCard({title, content}) {
+  return (
+    <div className='card sidebar-card'> //ide beraktunk egy másik class never is amit a navbar.css-ben akarunk állítani majd
+        <b>{title}</b>
+
+        <div>
+            {content}
+        </div>
+    </div>
+  )
+}
+
+Navbar.css
+.sidebar-card{
+    margin-bottom: 20px;
+    border-color: red; //nem működik, mert a main css import később van
+}
+
+mert main.css-be hamarabb jön be importban a Navbar mint a Folldable card és felülírja
+
+megoldás:
+
+ border-color: red !important; //ezt kell beírni és ezt veszi figyelembe
+
+vagy style=.... ez erősebb mint a className stílus
+
+sztem a legjobb, ha sokat módosuló paramétert kivesszük és helyben adjuk meg
+
+---------------------------------------------------------------------------
+kerestünk egy jobbra nyilat
+<i className="fa-solid fa-angle-right"/>
+
+-------------------------------------------------------------------------------------
+
+box-nknak adunk funkciót, ha rákattintunk nyil forduljon le és nyíljon ki a box
+
+2 féle változót szoktunk használni
+    let opened = false; //ez módosítható
+    const this_is_fixed = true; //ez meg nem
+
+először Foldable.js- be
+
+export default function FoldableCard({title, content}) {
+    
+    let opened = false; //változót hoztunk létre
+      
+    return (
+    <div className='card sidebar-card'>
+        <div>
+
+            <b>{title}</b>
+            <i className="fa-solid fa-angle-right"/>
+        </div>
+        
+
+        <div>
+            {
+                opened? content: null //itt meg hozzá az if függvényt (ha opened true akkor megmutatja a contentet amit a sidebar-ból hozunk be,ha nem akkor nem mutat semmit
+
+            }
+        </div>
+    </div>
+  )
+}
+
+utána kell egy clikk esemény ami az opened státuszt váltja majd
+
+FoldableCard.js-be
+<div className='card sidebar-card' onClick={e =>console.log('card clicked')}>
+magyarázat: onClick esemény-re várunk, ez az e =>
+ha megtörtént kiírja a browser terminálba a szöveget nem a vs codeba!
+inspect console clear console
+most ha clikkelek kiírja
+de ez mégsem jó, mert React nem figyeli a javascript változók módosítását
+<div className='card sidebar-card' onClick={e =>opened= true}> //tehát ez nem csinálja sajnos
+
+megoldás state kell
+
+import React, {useState} from 'react' //kell egy új import a useState ilyen kapcsosban
+azt jelenti hogy szeretnénk stateket használni
+
+kell egy const változó szögletes zárójel
+const []
+utána változó név kell és utána egy setter kell hozzá
+utána = useState{false} //egyenlőség jel után a függvény és definiálunk egy alapállapotot
+
+const [opened, set_opened] = useState(false) //ilyen lett
+onClick={e =>set_opened(true)}> //klikk esemény után ez lesz
+de nem lehet becsukni
+erre a megoldás:
+onClick={e =>set_opened(!opened)}> //true helyett !opened lett beírva, így csukódik
+
+
+most a nyilat és title-t bevittük egy div-be, ezt flexeljük és space between css-be
+    <div className='card sidebar-card' onClick={e =>set_opened(!opened)}>
+        <div className='header'> //ezt kapjuk el css-be
+            <b>{title}</b>
+            {
+                opened? <i className="fa-solid fa-angle-down"/> : <i className="fa-solid fa-angle-right"/>
+            }
+        </div>
+
+így lehet explicit hivatkozni, ez azért kell és jó mert lehetnek névütközések
+.sidebar-card .header{
+    color: red !important; //megnézzük a szelektálás jó-e
+    display: flex;
+    justify-content: space-between;
+}
+
+ezzel a Foldablecard.js kész
+minden a contenttől függ és azt Sidebar.js adja neki
+
+-----------------------------------------------------------------------------
+kell egy vonal is a sorting alá ami kiér a box szélére, tmdb honlapon olyan, csak kimaradt
+
+
+FoldableCard.js-be
+vonalat beraktuk a title alá és írtunk rá feltételt
+            {
+                opened? <hr />: null
+            }
+
+main.css-be
+hr{
+    border: none;
+    border-bottom: var(--default-border);
+}
+
+FoldableCard.css-be
+vegyük ki a paddinget, majd megadjuk ahol kell
+
+Sidebar.css-be
+.sidebar-card .header{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px; //itt adtunk paddinget, amit kivettünk feljebb
+}
+
+Sidebar.js-be
+function Sorting(){
+  return(
+    <div className='card-content'> //className beírva
+      <p>Sort Results by</p>
+    </div>
+  )
+
+Sidebar.css-be
+.sidebar-card .card-content{
+    padding: 10px;
+}
+-------------------------------------------------------------------------
+
+Sidebar.js
+
+elkészítjük a contentet amit beszúrunk
+
+export default function Sidebar() { // ami előtt export default van írva az importálható másik js-be
+nekünk ez most nem kell az új függvényhez
+function Sorting(){ //nincs előtte export defult mert ez helyi függvény lesz, csak itt használjuk ebben a js.ben
+  return(
+    <div>Sorting...</div>
+  )
+}
+
+folytatás:
+<FoldableCard title='Sort' content={<Sorting/>}/> //behívtuk a conent után
+
+folytatás:
+
+1h25p maradt
+
+
+
+
+
+
 
 
 
