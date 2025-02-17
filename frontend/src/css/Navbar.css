@@ -1,0 +1,47 @@
+.navbar{
+    height: 64px;
+    background-color: var(--navbar-color);
+    color: var(--default-font-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 0 40px;
+}
+
+.navbar-logo{
+    width: 154px;
+    
+}
+
+.navbar-item{
+    margin: 0 20px;
+    font-weight: 800;
+    cursor: pointer;
+    padding-top: 2px;
+
+}
+
+.fa-magnifying-glass{
+    font-size: 25px;
+    color: var(--light-blue);
+    cursor: pointer;
+}
+
+.fa-house{
+    margin-left: 30px;
+    margin-right: 20px;
+    padding-top: 0px;
+    font-size: 25px;
+    color: var(--light-blue);
+    cursor: pointer;
+}
+
+.en_button{
+    margin: 0 20px;
+    font-weight: 800;
+    cursor: pointer;
+    
+    border: var(--default-font-border);
+    padding: 3px;
+    
+}

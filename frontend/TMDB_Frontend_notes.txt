@@ -1,0 +1,101 @@
+amikor ezt megnyitottuk akkor a git majd mondja, hogy egy mappával följebb van git, meg akarod niytni?
+igen nyissuk meg, aztán fönt menüben mutatja is
+
+---------------------------------------------------------
+variables.css
+globális változót készítünk, amit máshol is tudunk használni
+ez a szintaktika:
+
+:root{
+    --navbar-color: #032541;
+    --light-blue: #01b3e3;
+    --default-border: 1px solid rgba(0,0,0,0.112);
+    --default-border-radius: 10px;
+}
+
+utána @import "variables.css"; main.css-be
+
+main.css-be haszáljuk:
+body{
+    background-color: var(--navbar-color); //így lehet használni
+    color: white;
+    font-family: "Roboto";
+}
+
+---------------------------------------------------------------
+tmdb oldalról a betű inspect-el lelopva
+emlékeztető: google fonts, Source Sans 3, get font, de figyelni az előző fontokat törölni a honlapon
+utána embebbed code, az elsőt kell másolni a html-be másolandót
+ezt be kell illeszteni az index.html-be
+utána a google oldalon a css code-ból a font-family-t másolni
+font-family: "Source Sans 3", serif;
+
+--------------------------------------------------------------------
+így lehet navbaron középre és egymástól eltolni az itemeket
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+még egy trükk:
+Navbar.js-be is lehet direktben stílust írni, nem kell css mindig
+ol inherit esetén jobb ott
+illetve két div kell, mert egyik bal oldalon van a másik jobb oldalon
+
+      <div style={{display:"inherit"}}> //css helyett ítt írtuk a stílust
+        <img className='navbar-logo' src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" alt="logo" />
+        <div>Movies</div>
+        <div>TV Shows</div>
+        <div>People</div>
+        <div>More</div>
+      </div>
+
+      <div style={{display:"inherit"}}> //css helyett ítt írtuk a stílust
+        <div>Login</div>
+        <div>Join TMDB</div>
+      </div>
+-------------------------------------------------------------------------
+
+kellene egy nagyító ikon a kereséshez, ezt innen lehet linkelni:
+font awesome
+https://fontawesome.com
+gaborfarkasnk@gmail.com
+Krudygyula29
+https://fontawesome.com/kits/7387c023b7/setup //setupra kell eljutni valahogy
+utána <script src="https://kit.fontawesome.com/7387c023b7.js" crossorigin="anonymous"></script>
+bemásolni az index.html-be
+utána Navbar.js-be ezt: <i class="fa-solid fa-magnifying-glass"></i>
+figyelni, hogy módosítani kell ezt, mert nem React kompatibilis teljesen
+<i className="fa-solid fa-magnifying-glass"/>
+így már jó lesz
+
+innentől lehet más free ikont is berakni, pl: 
+<i className="fa-solid fa-house"/> //Home ikon
+css.be így módosítottam
+.fa-house{
+    margin-left: 30px;
+    margin-right: 20px;
+    padding-top: 2px; kicsit eltoltam lefelé
+}
+--------------------------------------------------------------------
+button:
+érdemes main.css-be megcsinálni az alap és inverted buttont. sok felé használjuk
+button{
+    background-color: var(--light-blue);
+    font: inherit;
+    color: var(--default-font-color);
+    padding: 10px;
+    font-weight: bold;
+    font-size: 24px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.inverted-button{
+    background-color: var(--default-font-color);
+    color: var(--light-blue);
+}
+
+
+
+

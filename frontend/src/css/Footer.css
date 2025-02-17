@@ -1,0 +1,18 @@
+
+
+.footer{
+    
+    background-color: var(--navbar-color);
+    color: var(--default-font-color);
+    display: flex;
+    
+    justify-content: space-between; 
+    padding: 40px;
+}
+
+
+
+.footer img{
+    width: 130px
+}
+

@@ -1,3 +1,12 @@
+@import "Footer.css";
+@import "variables.css";
+@import "LandingPage.css";
+@import "MovieDetailsView.css";
+@import "MovieListView.css";
+@import "Navbar.css";
+@import "Sidebar.css";
+
+
 *{
     padding: 0;
     margin: 0;
@@ -6,7 +15,22 @@
 
 
 body{
-    background-color: #0d1117c0;
-    color: white;
-    font-family: "Roboto";
+    font-family: "Source Sans 3", serif;
+}
+
+button{
+    background-color: var(--light-blue);
+    font: inherit;
+    color: var(--default-font-color);
+    padding: 10px;
+    font-weight: bold;
+    font-size: 24px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.inverted-button{
+    background-color: var(--default-font-color);
+    color: var(--light-blue);
 }
