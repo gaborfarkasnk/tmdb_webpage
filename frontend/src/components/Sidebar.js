@@ -14,7 +14,7 @@ function Sorting(){
     'A-Z Descending',
     'A-Z Ascending'
   ]
-  
+
   return(
     <div className='card-content' onClick={e => e.stopPropagation()}>
       <p>Sort Results by</p>
@@ -24,10 +24,24 @@ function Sorting(){
 }
 
 function Filters(){
+  
+  const genres = [
+    'Action',
+    'Adventure',
+    'Animation',
+    'Comedy',
+    'Crime',
+    'Documentary',
+  ]
+  
+  
   return(
     <div className='card-content' onClick={e => e.stopPropagation()}>
-      Filters...
-      </div>
+      {
+        genres.map(genre_item => <div>{genre_item}</div>)
+      }
+    </div>
+    
   )
 }
 

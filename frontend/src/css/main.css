@@ -90,3 +90,8 @@ hr{
 .combo-box .combo-items-container .combo-item:hover{
     background-color: rgb(240, 235, 235);
 }
+
+.combo-box .combo-items-container .combo-item.active{
+    background-color: rgb(240, 235, 235);
+    font-weight: bold;
+}

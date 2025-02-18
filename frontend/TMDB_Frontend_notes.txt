@@ -604,18 +604,70 @@ items.map(menu_item => <div className='combo-item' onClick={e => set_current_ite
 ezzel a current item a klikkelt item lesz
 
 következő:
+mikor kiválasztjuk amit akartunk záródjon be a box
+tehát két state-t kellene a clikk eseménynek figyelnie
+erre készítünk egy új függvényt
+function handle_item_clicked(item_name){}
+ez a mapes sor, függvény majd ezt hívja be és nem a set current itemet innen: const [current_item, set_current_item] = useState(selected_item)
+items.map(menu_item => <div className='combo-item' onClick={e => handle_item_clicked(menu_item)}>{menu_item}</div>)
+
+  ki kell próbálni, kiíratjuk consolba:
+    function handle_item_clicked(item_name){
+        console.log(item_name)
+    }
+
+működik, szóval beírjuk mit csináljon:
+    function handle_item_clicked(item_name){ //mapes sor átadja a paramot a functionnak aza menu_item=item_name
+        set_current_item(item_name) //current item= item_name, ez írja ki a szürke címsorba
+        set_opened(false) //opened false lesz, ez zárja be
+    }
+
+következő:
+emelje ki félkövérrel a kijelölt itemet
+
+ha current item = menu item akkor activáljuk a kiemelést, azaz a className-ben az aktiv amit lent beírunk az active ha nem akkor eltűnik onnan
+
+ezt a sorunkat bonyolítjuk tovább
+items.map(menu_item => <div className='combo-item' onClick={e => set_current_item(menu_item)}>{menu_item}</div>)
+//'combo-item' ezt a részt--->{`combo-item active`} //formázott string, altgr+7 gomb vessző
+formázott stringbe tudunk javascript-et írni hogy active eltűnjön vagy ne, azaz ez változó lesz akkor
+ilyen lett:
+className={`combo-item ${current_item === menu_item? "active": ""}`} //dollár jel, kapcsos zárójel, ebbe megy a js condíció
 
 
+ezután mehet a main.css
+.combo-box .combo-items-container .combo-item.active{ //nagyon figyelni kell mert .active elé nem kell space ilyenkor, pici különbség de sokszor bele lehet hibázni
+    background-color: rgb(240, 235, 235);
+    font-weight: bold;
+}
 
+COMBO EZZEL KÉSZ---------------------------------------------------------
 
-folytatás:
+-------------------------------------------------------
+filter rész könnyű, ott egy listán végig megy és berakja
+function Filters(){
+  
+  const genres = [
+    'Action',
+    'Adventure',
+    'Animation',
+    'Comedy',
+    'Crime',
+    'Documentary',
+  ]
+  
+  
+  return(
+    <div className='card-content' onClick={e => e.stopPropagation()}>
+      {
+        genres.map(genre_item => <div>{genre_item}</div>)
+      }
+    </div>
+    
+  )
+}
 
-1h25p maradt
-
-
-
-
-
+következő ezt formázni, majd 5.2 video
 
 
 
