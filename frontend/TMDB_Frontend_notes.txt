@@ -425,6 +425,189 @@ function Sorting(){ //nincs előtte export defult mert ez helyi függvény lesz,
 folytatás:
 <FoldableCard title='Sort' content={<Sorting/>}/> //behívtuk a conent után
 
+folytatás: //legördülő menü lesz a sorting alatt
+function Sorting(){
+  return(
+    <div className='card-content'> //ez nem teljesen jó, lásd kövi pontban miért!
+      <p>Sort Results by</p>
+      <select name="" id=""> //select tab kell a legördülő menühöz
+        <option value="">"Popularity Descending"</option> // option meg a tartalomhoz
+        <option value="">Popularity Ascending</option>
+        <option value="">Rating Descending</option>
+        <option value="">Rating Ascending</option>
+      </select>
+
+    </div>
+  )
+}
+
+probléma: klikk esemény bezárja a boxot, meg kell állítani a klikk öröklést
+megoldás ez:
+<div className='card-content' onClick={e => e.stopPropagation()}> //stop propagation
+
+de ez jó régi kinézetű valami, készítünk egy sajátot
+
+---------------------------------------------------------------------------------------
+Combobox.js micro mappába
+rfc enter
+
+import React, {useState} from 'react' //importáljuk be a {useState}-t
+
+export default function Combobox({items, selected_item}) {
+  
+    const [opened, set_opened] = useState(false) //1. state, augyan az mint a fentebbi html combonál
+    const [current_item, set_current_item] = useState(selected_item) //2. state, ez meg azért kell, hogy az előzőleg kiválasztottat becsukás után is megtartsa
+  
+    return (
+        <div className='combo-box'>
+            <div className='combo-button'> 
+                //ide került a js változó és a szokásos nyilas függvény is
+                {current_item} {opened? <i className="fa-solid fa-angle-down"/> : <i className="fa-solid fa-angle-left"/>}
+            </div>
+        
+        </div>
+    )
+
+
+következő lépés:
+be kell rakni az előző combo helyére, hogy lássuk, formázzuk
+Siderbar.js-be select tagek-et kivettük, helyére beraktuk az új combot, importálásra figyelni!
+function Sorting(){
+  return(
+    <div className='card-content' onClick={e => e.stopPropagation()}>
+      <p>Sort Results by</p>
+      <Combobox items='' selected_item='Popularity Descending'/> //ide raktuk be és beadtuk a paramétereket is
+    </div>
+  )
+
+main.css-be: //nem érdemes készíteni saját css-t, mert main az jó, amit több helyen használunk az ide kell
+.combo-box .combo-button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(240, 235, 235);
+    border-radius: var(--default-border-radius);
+}
+
+
+köetkező lépés:
+klikkelés funkció nyil forgatás
+<div className='combo-button' onClick={e => set_opened(!opened)}> //és már forog a nyil
+figyelni hogy nem onClicked hanem onClick.... qml-el nem keverni!
+
+köetkező lépés: legördülő menü
+Sidebar.js:
+items='' ide kell egy listát beszúrni
+<Combobox items='' selected_item='Popularity Descending'/>
+
+
+function Sorting(){
+  
+  const options = [ //itt a lista, options névvel
+    'Popularity Descending',
+    'Popularity Ascending',
+    'Rating Descending',
+    'Rating Ascending',
+    'Release Date Descending',
+    'Release Date Ascending',
+    'A-Z Descending',
+    'A-Z Ascending'
+  ]
+  
+  return(
+    <div className='card-content' onClick={e => e.stopPropagation()}>
+      <p>Sort Results by</p>
+      <Combobox items={options} selected_item='Popularity Descending'/> //ide lett beszúrva kapcsosban
+    </div>
+  )
+
+érdemes a text helyére a lista 0-k elemét hivatkozni, olyan mint Pythonban
+<Combobox items={options} selected_item={options[0]}/>
+
+következő: lista elemeit be kellene vinni a boxba
+ehhez majd a for loop kell, ez js-ben a map() parancs lesz
+Combobox.js
+
+            <div className='combo-items-container'>
+                {
+                    items.map(menu_item => <div className='combo-item'>{menu_item}</div>)
+                }
+            </div>
+magyarázat: item listán végigmegy. minden eleme (i) a menu_item, ezeket berakja egy külön div-be
+lényegében az a repater parancs, qt-ben is volt ilyen
+azért kell div, mert azok csak egymás alá kerülhetnek, ez a tulajdonsága
+és még class nevet is ad neki
+
+ezt is átrendeztük csukogatósra
+            {
+                opened?
+                    <div className='combo-items-container'>
+                        {
+                            items.map(menu_item => <div className='combo-item'>{menu_item}</div>)
+                        }
+                    </div>
+                :
+                    null
+            }
+
+mehetünk a main.CSS-be
+itemeket így érjük el és formázhatjuk őket
+
+.combo-box .combo-items-container{
+    border: var(--default-border);
+    border-radius: var(--default-border-radius);
+    padding: 10px;
+    position: absolute; //ezt azért csináljuk, hogy a combo box mérete ne növekedjen, hanem kilóg belőle
+    background-color: white;
+    width: 100% ; //ezzel azt akarjuk, hogy a parent szélességét vegye fel
+    top: 50, //például ezzel lehet a pozíciót mozgatni fel le jobbra balra, ez csak példa itt
+    box-shadow: -0px 0px 15px 3px rgba(0,0,0,0.15);
+}
+csak nem a fölöttét vette fel, hanem a body-ét, mert csak ott volt position definiálva
+ezért a parent ami a combo box, ott lesz egy position relative definiálva
+amit meg kell jegyezni, hogy mindig kell keresni egy parentet mikor positionálunk
+.combo-box{
+    position: relative; //ez beleszámolódik a hely szükségletbe (az absolute az nem)
+}
+
+
+feladat: görgető sáv készítés
+ehhez meg kell adni egy max magasságot, így nem növeli a tartalomhoz a box-ot
+
+.combo-box .combo-items-container{ // ezt folytatjuk
+    max-height: 100px; //max magasság
+    overflow-y: auto; //ha kifolyik akkor auto tesz görgetős sávot
+
+
+feladat:
+ha egy item felett állunk legyen kiemelve
+.combo-box .combo-items-container .combo-item:hover{
+    background-color: rgb(240, 235, 235);
+}
+kész, de nem ér ki a box szélére a háttér, mert ban padding feljebb
+megoldás:
+.combo-box .combo-items-container{
+    padding: 10px; //törölni kell
+
+viszont így kell az itemeknek padding, így:
+.combo-box .combo-items-container .combo-item{
+    padding-left: 10px;
+}
+
+
+következő:
+elem kiválasztás
+Combobox.js-be ezt a sorunkat bővítjük
+items.map(menu_item => <div className='combo-item' onClick={e => set_current_item(menu_item)}>{menu_item}</div>)
+// onClick eseményt adtunk hozzá
+ezzel a current item a klikkelt item lesz
+
+következő:
+
+
+
+
 folytatás:
 
 1h25p maradt
