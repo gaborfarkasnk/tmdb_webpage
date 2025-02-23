@@ -45,3 +45,12 @@
     padding: 3px;
     
 }
+
+.search-box-container{
+    display: flex;
+    align-items: center;
+}
+
+.search-box-container input{
+    margin-right: 5px;
+}

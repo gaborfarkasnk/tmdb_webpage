@@ -667,7 +667,73 @@ function Filters(){
   )
 }
 
-következő ezt formázni, majd 5.2 video
+---------------------------------------------------------------
+készítünk search box-ot
+micro-ba SearchBox.js
+Navbar.js-be ezt <SearchBox/> beraktuk a nagyító ikon helyére azt meg átraktuk a SearchBox.js-be, eredmény uaz mint volt, de most lehet funkciót programozni
+
+import React, { useState } from 'react' //useState import, figyelni a vesszőre
+const [opened, set_opened] = useState(false) //ez az első state, function alá, return elé
+<div onClick={e => set_opened(!opened)}> //div be a clik eseményt beírjuk
+ első körben adjunk meg egy react js componentst a divben           
+{
+  opened?
+  <div>Searchbar</div> //ezt is tegyük divbe
+  :
+  null
+}
+// utána próbáljuk ki, hogy működik-e, igen, mikor klikkelek megjelenik a szöveg utána meg eltűnik
+akkor most cseréljük ki inputfield -re. kezdjük beírni hogy input, de ne a divbe, hanem kint utána rakjuk be, így VC segít, ha így sem segít akkor az emmet nincs beállítva, korábban erről volt szó
+
+<div>Searchbar</div> ----> <input type="text" /> //erre cseréltük
+
+utána: ikont átvittük a textfield mögé
+            {
+                opened?
+                <input type="text" />
+                :
+                null
+            }
+            <i className="fa-solid fa-magnifying-glass"/>
+
+utána: meg kell állítani a clikk eseményt, mert nem tudunk bele írni, bezárja, erre is adunk click eseményt (minden html komponensre lehet)
+<input type="text" onClick={e => e.stopPropagation()} />
+
+utána: adhatunk placeholdertext-et hozzá
+<input type="text" placeholder='Search...' onClick={e => e.stopPropagation()} />
+
+utána: jöhet a css, erre jó lesz a navbar.css mert úgyis csak ott lesz használva, ha máshol is akkor main.css a jó hely erre
+először kell className: 
+<div onClick={e => set_opened(!opened)} className='search-box-container'> //amikor a felsőnek ad nevet akkor containert szokott adni, így tudja, hogy ez a root és ebben van minden más
+azaz itt: search-box-container-en belül az input az egyik, i a másik, mindkettőt így el lehet kapni css-ben
+
+.search-box-container{
+    display: flex; //rögtön középre rendeződött és strechelve lett a helyre
+    align-items: center; //középre igazít
+}
+
+mivel nincs még global input-ra definíciónk, ezt a main.css-be megcsináljuk, azaz ha máshol lesz input még az oldalon, akkor egységes lesz a formátum, ezért rakjuk oda, nem a textfielded hanem az input taget!
+
+main.css
+input{
+    font: inherit; //első lépés örökölje a betűt a felette lévő oldaltól, az a body tag
+    padding-left: 5px;
+    border: none;
+    outline: none;
+    border-radius: var(--default-border-radius);
+}
+
+main az kész is
+
+Navbar.css-be, hogy kicsit eltolja magától a nagyítót
+.search-box-container input{
+    margin-right: 5px;
+}
+
+-----------------------------------------------------------------------------------------------------
+
+
+
 
 
 

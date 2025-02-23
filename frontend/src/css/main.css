@@ -95,3 +95,11 @@ hr{
     background-color: rgb(240, 235, 235);
     font-weight: bold;
 }
+
+input{
+    font: inherit;
+    padding-left: 5px;
+    border: none;
+    outline: none;
+    border-radius: var(--default-border-radius);
+}
