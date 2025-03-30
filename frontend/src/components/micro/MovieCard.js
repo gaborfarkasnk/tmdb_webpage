@@ -1,10 +1,11 @@
 import React from 'react'
 import Poster from "../../images/poster.webp"
 import PopularityProgress from './PopularityProgress'
+import { Link } from 'react-router-dom'
 
 export default function MovieCard() {
   return (
-    <div className='card movie-card'>
+    <Link to = "/movies/12345-mufasa" className='card movie-card'>
         <div className= 'poster-container'> 
           <img src={Poster} alt="poster" />
           <PopularityProgress/>
@@ -15,6 +16,6 @@ export default function MovieCard() {
           <p>Sep 12, 2024</p>
         </div>
 
-    </div>
+    </Link>
   )
 }

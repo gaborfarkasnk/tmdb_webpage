@@ -747,5 +747,40 @@ de hozzá adtunk még egy nevet movie-card névvel, így egyedi jellemző is tud
 Moviecard.css:
 kép ne lógjon ki a cardból: overflow: hidden; parancs kell
 
+----------------------------------------------------------------------------
+    <BrowserRouter>
+    
+    <div className="App">
+      <div>
+        <Navbar/>
+        
+        <Routes>
+          <Route path="/" element = {<Listview/>}/>
+          <Route path="/tvshows" element = {<Listview/>}/>
+          <Route path="/people" element = {<Listview/>}/>
+          <Route path="/more" element = {<More/>}/>
+          <Route path="/login" element = {<Login/>}/>
+          <Route path="/registration" element = {<Registration/>}/>
+          <Route path="/language" element = {<Language/>}/>
+
+          <Route path="/movies/:slug" element = {<MovieDetails/>}/> //mikor valaminek a részletes oldalára megyünk a slug kell
+: azt jelenti hogy nem string hanem egy változó kerül az url linkbe
+slug az egy változó, slang (id_nev_stb) adatbázisban egy egyedi azonosito
+
+        </Routes>
+
+      </div>
+      <Footer/>
+
+
+    </div>
+
+    </BrowserRouter>
+
+---------------------------------------------
+import { useParams } from 'react-router-dom'
+ezzel kiszedjük az url-ből a slug paramétert
+
+
 
 
