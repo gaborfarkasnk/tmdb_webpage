@@ -6,6 +6,9 @@
 @import "Navbar.css";
 @import "Sidebar.css";
 @import "./micro/FoldableCard.css";
+@import "Moviecard.css";
+@import "PopularityProgress.css";
+
 
 
 *{

@@ -731,10 +731,21 @@ Navbar.css-be, hogy kicsit eltolja magától a nagyítót
 }
 
 -----------------------------------------------------------------------------------------------------
+MovieListView.js a következő, ebbe importálunk sok MovieCard.js-t
 
+MovieCard.js
 
+import Poster from "../../images/poster.webp" //először import
+    <div>
+        <img src={Poster} alt="poster" /> //utána ide berak
+    </div>
+ezzel egy csomó kép került az oldalra egymás alá
 
+<div className='card movie-card'> //card az már volt, lett szép körvonal árnyék stb
+de hozzá adtunk még egy nevet movie-card névvel, így egyedi jellemző is tudunk adni neki
 
+Moviecard.css:
+kép ne lógjon ki a cardból: overflow: hidden; parancs kell
 
 
 
