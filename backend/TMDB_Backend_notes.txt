@@ -1,0 +1,17 @@
+-------------------------------------------------------------
+
+DJANGO project install
+
+1. lépés create .gitignore file
+	env/ és *.pyc
+2. lépés python -m venv env
+3. lépés env\Scripts\activate
+4. lépés pip install django
+5. django-admin startproject tmdb_server . //pont azt jelenti hogy abba a könyvtárba ahol vagyunk, azaz backend root
+6. lépés python manage.py runserver //teszteljük, hogy működik-e
+7. lépés http://127.0.0.1:8000/ //ezt a végpontot kapjuk a terminálban, The install worked successfully! Congratulations!
+8. cntr c kilép
+9. lépés python manage.py migrate
+10. lépés SQLite Viewer VS extension install
+11. db.sqlite3 fájl tartalmát már láthatjuk
+12 lépés python manage.py createsuperuser (gabor, testpass123) //ezzel db.sqlite3-ban aut user listában a gábor feltöltődött

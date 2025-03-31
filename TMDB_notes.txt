@@ -24,3 +24,6 @@ Arculati kódot nem tartalmaz a backend, csak a frontend.
 json data mindenkinek uaz, csak a frontendek máshogy consumolját, használják fel
 -------------------------------------------------------------
 
+DJANGO project install
+
+1. lépés create .gitignore file
