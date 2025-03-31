@@ -778,9 +778,25 @@ slug az egy változó, slang (id_nev_stb) adatbázisban egy egyedi azonosito
     </BrowserRouter>
 
 ---------------------------------------------
+MovieDetails.js
+
 import { useParams } from 'react-router-dom'
 ezzel kiszedjük az url-ből a slug paramétert
 
+példa: http://localhost:3000/movies/12354-movie
+MovieDetails: 12354-movie, ezt nyomtatja ki
 
+import React from 'react'
+import { useParams } from 'react-router-dom'
+
+export default function MovieDetails() {
+  
+    const {slug} = useParams() // slug-nak itt adunk értéket
+    return (
+    <div>
+        MovieDetails: <span>{slug}</span> //slugot kiírja
+    </div>
+  )
+}
 
 

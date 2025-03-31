@@ -1,0 +1,97 @@
+egy fake szervert készítünk amivel a frontend kommunikál, később e helyett lesz a rendes szerver
+
+npm install -g json-server //azért g mert golobalba és nem a projektünkbe installáljuk
+
+készítünk egy db.json file-t a frontend mappába, ez lesz a fake adatbázis
+
+2 terminál kell, rename őket reactserver és jsonserver
+
+jsonserverbe:
+json-server --watch db.json --port 3001 //3001 kell, mert a react server fut a 3000 porton
+
+react server-be
+npm install axios //ez azért kell hogy a reacton belül olvasni tudjuk a db.json szervert
+végpontok lekérdezése amiket a json server csinál a db.json alapján
+például: http://localhost:3001/movies
+
+--------------------------------
+
+MovieListView.js
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
+
+useEffect(() => {}, []) //mikor meglátogatjuk a MovieList oldlt egyszer fel kell tölteni az üres listát a jsonból, erre kell ez a useeffect és fura szintaktika. Minden ami a {} be lesz az fut le
+
+  useEffect(() => {
+    axios({ //ezt írjuk a kapcsosba, ez kéri az adatokat a server végpontról
+      method: "get",
+      url: "http://localhost:3001/movies" 
+    }).then(res => console.log(res.data)) //ezzel kiíratjuk a console-ba, ellenőrizzük jól működik-e
+  }, [])
+
+----
+persze aztán a console.éog-ot cseréljük a set_movies-re, ezzel a listánkat feltöltjük a kapott adatokkal
+then(res => set_movies(res.data))
+
+---------------------------------------------
+így néz ki a kód:
+
+import React, { useState, useEffect } from 'react'
+import MovieCard from './micro/MovieCard'
+import axios from 'axios'
+
+export default function MovieListView() {
+  
+  const [movies, set_movies] =useState([]) //ez az üres listánk amit axios-al töltünk fel
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "http://localhost:3001/movies"
+    }).then(res => set_movies(res.data))
+  }, [])
+
+  return (
+    <div className='listview'>
+
+      {
+        movies.map(movie_data => console.log(movie_data)) //itt kinyomtatjuk egyesével a consolba a lista elemeit
+        movies.map(movie_data => <MovieCard movie_data={movie_data}/>) //Moviecard.js-t behívjuk és átadjuk az adatot, ehhez kell tudni fogadni is persze
+      }
+    
+    </div>
+  )
+}
+--------------------------------------------------------------------
+Moviecard.js módosítása, hogy adatot tudjon fogadni:
+
+import React from 'react'
+import Poster from "../../images/poster.webp"
+import PopularityProgress from './PopularityProgress'
+import { Link } from 'react-router-dom'
+
+export default function MovieCard({movie_data}) { //kapcsos zárójelbe írjuk a para,éter adatot ami itt a movie_data lesz
+  return (
+    <Link to = "/movies/12345-mufasa" className='card movie-card'>
+        <div className= 'poster-container'> 
+          <img src={movie_data.poster_path} alt="poster" /> //így hivatkozunk az adatra
+          <PopularityProgress/>
+        </div>
+
+        <div className= 'title-container'>
+          <h4>{movie_data.title}</h4> //így hivatkozunk az adatra
+          <p>{movie_data.release_date}</p> //így hivatkozunk az adatra
+        </div>
+
+    </Link>
+  )
+}
+
+
+
+
+
+
+
+
+

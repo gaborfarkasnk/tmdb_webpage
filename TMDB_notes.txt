@@ -11,3 +11,16 @@ cmd-ba npm install
 utána vs kód nyit a teljes tmdb könyvtárba és git feltölt
 utána nyissuk meg a frontendet a vs kódba
 és mehet a reactos munka:)
+
+--------------------------------------------
+REST API Architecture
+
+db.json ----> Json server -----> React UI vagy Smartphone, vagy Smart TV
+
+REACT UI is sending a get request to Json server endpoint
+Ez kommunikál a db.json- fájllal ls visszaküldi a json data-t a Reactnak
+
+Arculati kódot nem tartalmaz a backend, csak a frontend.
+json data mindenkinek uaz, csak a frontendek máshogy consumolját, használják fel
+-------------------------------------------------------------
+
