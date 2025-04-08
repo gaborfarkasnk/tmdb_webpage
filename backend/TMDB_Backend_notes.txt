@@ -15,3 +15,41 @@ DJANGO project install
 10. lépés SQLite Viewer VS extension install
 11. db.sqlite3 fájl tartalmát már láthatjuk
 12 lépés python manage.py createsuperuser (gabor, testpass123) //ezzel db.sqlite3-ban aut user listában a gábor feltöltődött
+13. settings.py fájlban van a secret key, ezt nem szabad feltenni gitre, hanem környezeti változóban kell a gépre menteni
+		(erről majd kapok levelet, mert felraktam a git-be)
+14. lépés python manage.py runserver //indítsuk el
+15. lépés: http://127.0.0.1:8000/admin //megnyitott link után /admin enter
+16. lépés: gabor és testpass123
+17. lépés adatbázis jogokat itt lehet adni
+18. lépés ctrl c leáll
+19. lépés library-kat kell telepíteni 
+	pip install djangorestframework
+	ez azért kell, mert a django önmagában nem képes kommunikálni a reacttal ehhez kell ez a rest framework lib
+	képes legyen json responsokat küldeni
+	https://www.django-rest-framework.org/ // itt van a következő lépések leírása
+20. lépés settings.py-ba , installed apps-ba
+      'rest_framework'
+21. lépés urls.py-ba
+	from django.urls import path, include //include import
+	
+	path('api-auth/', include('rest_framework.urls')) //ezt a path-ot is a listába kell másolni
+22. lépés Django biztonsági beállítása, mert a Reactból érkező requestet veszélyesnek fogja ítélni és visszautasítja
+	kell új library: pip install django-cors-headers	
+	utána settings.py-ba, installed app listába: 'corsheaders' //ha érkezik egy req máshonnan egy url-ből, ennek 	segítségéval white listelhetjük
+23. lépés: mikor szervert indítunk mielőtt bármi fut lefuttatja, ellenőrzi a middleware listát
+	settings.py-ba
+	middleware listába fontos hogy a commonmiddleware elé!!! ezt kell beírni:
+		"corsheaders.middleware.CorsMiddleware",
+24. lépés: white list készítés a settings.py-ba
+	CORS_ALLOWED_ORIGINS = [] // listát készítünk
+	"//http://localhost:3000" //listába beírni
+
+
+
+
+
+
+
+
+
+	
