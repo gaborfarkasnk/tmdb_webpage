@@ -39,11 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+
+    'tmdb_database'
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "//http://localhost:3000"
+    "http://localhost:3000"
 ]
 
 

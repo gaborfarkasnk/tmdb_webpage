@@ -42,11 +42,17 @@ DJANGO project install
 		"corsheaders.middleware.CorsMiddleware",
 24. lépés: white list készítés a settings.py-ba
 	CORS_ALLOWED_ORIGINS = [] // listát készítünk
-	"//http://localhost:3000" //listába beírni
+	"http://localhost:3000" //listába beírni
 25. lépés: szerver ne fusson, terminálba: python manage.py startapp tmdb_database
 	létrehoz egy könyvtárat ami a mi weboldalunkhoz kell
 26. lépés: pip freeze > requirements.txt
+27. lépés: tmdb_database mappa-ból, apps.py-ból 'tmdb_database' copy, tmdb_server settings.py installed apps listába paste 'tmdb_database' //ezzel django adatbázis szerver tud kommunikálni, adatot tárolni, beolvasni innen
+28. lépés: python manage.py runserver //teszteljük, hogy működik-e
 
+
+
+------------tmdb_database mappa---------------
+289. lépés: 
 
 
 
