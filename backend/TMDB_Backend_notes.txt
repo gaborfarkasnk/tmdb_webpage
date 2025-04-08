@@ -43,9 +43,9 @@ DJANGO project install
 24. lépés: white list készítés a settings.py-ba
 	CORS_ALLOWED_ORIGINS = [] // listát készítünk
 	"//http://localhost:3000" //listába beírni
-
-
-
+25. lépés: szerver ne fusson, terminálba: python manage.py startapp tmdb_database
+	létrehoz egy könyvtárat ami a mi weboldalunkhoz kell
+26. lépés: pip freeze > requirements.txt
 
 
 
