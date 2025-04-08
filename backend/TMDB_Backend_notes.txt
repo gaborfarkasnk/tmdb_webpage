@@ -48,13 +48,45 @@ DJANGO project install
 26. lépés: pip freeze > requirements.txt
 27. lépés: tmdb_database mappa-ból, apps.py-ból 'tmdb_database' copy, tmdb_server settings.py installed apps listába paste 'tmdb_database' //ezzel django adatbázis szerver tud kommunikálni, adatot tárolni, beolvasni innen
 28. lépés: python manage.py runserver //teszteljük, hogy működik-e
+29. lépés: views.py-ba (tmdb_database)
+	from rest_framework.views import APIView
+	from rest_framework.response import Response
+	# Create your views here.
+	class HomeView(APIView):
+    	def get(self, request):
+        	return Response("Hello World")
+30. lépés: urls.py-ba (tmdb_server)
+	from tmdb_database.views import HomeView //beimportáljuk a views.py-t
+	path("", HomeView.as_view())
+31. lépés: python manage.py runserver //és a linken megjelenik a Hello World
 
 
+32. lépés: beírtuk a movie data dictionary-t a db.json-ból és ez lett a response, most ott tartunk mint a frontendnél a bd.json fájllal
 
-------------tmdb_database mappa---------------
-289. lépés: 
+class HomeView(APIView):
+    def get(self, request):
+        movie_data = [
+                {"id" : "1125899", "poster_path" : "https://media.themoviedb.org/t/p/w220_and_h330_face/mwzDApMZAGeYCEVjhegKvCzDX0W.jpg", "title" : "Cleaner", "release_date" : "2025. febr. 19."},
+                {"id" : "1165067", "poster_path" : "https://media.themoviedb.org/t/p/w220_and_h330_face/mClzWv7gBqgXfjZXp49Enyoex1v.jpg", "title" : "Cosmic Chaos", "release_date" : "2023. aug. 03."},
+                {"id" : "1373723", "poster_path" : "https://media.themoviedb.org/t/p/w220_and_h330_face/oXeiQAfRK90pxxhP5iKPXQqAIN1.jpg", "title" : "The Codes of War", "release_date" : "2025. márc. 20."}
+            ]
+        return Response(movie_data)
 
+33. lépés: urls.py-ba (tmdb_server)
+	from tmdb_database.views import MovieListView //import nevét átírjuk
+	# this is our API endpoint
+	path("api/movies/", MovieListView.as_view()) //átírtuk path("", HomeView.as_view())-t másra!
+34. lépés: views.py-ban a class nevét átírtuk
+	class MovieListView(APIView):
+35.lépés, vs code file/new window, open frontend
+36. lépés: MovieListView.js-be 
+	url: "http://127.0.0.1:8000/api/movies/"- ez az új URL
+37. lépés: npm start
+----------------------------------------------------------------------------------------------------------
+éd kész is látjuk a filmeket
+összegezve: frontend arculat és requesteket küld címekre, backend meg választ ad json formában neki
 
+---------------------------------------------------------------------------------------------------------------
 
 
 
